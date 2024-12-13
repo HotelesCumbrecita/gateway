@@ -148,4 +148,46 @@ export class HabitacionesService {
       this.habitacionServiceClient.send({ cmd: 'remove_foto_habitacion' }, id),
     );
   }
+
+  // Métodos añadidos
+
+  // Método para obtener habitaciones por tipo de habitación
+  async findAllHabitacionesByTipoHabitacion(
+    tipoHabitacionId: number,
+    paginationDto: PaginationDto,
+  ) {
+    return await firstValueFrom(
+      this.habitacionServiceClient.send(
+        { cmd: 'find_all_habitaciones_by_tipo' },
+        { tipoHabitacionId, paginationDto },
+      ),
+    );
+  }
+
+  // Método para obtener habitaciones por servicio específico
+  async findAllHabitacionesByServicio(
+    servicioId: number,
+    paginationDto: PaginationDto,
+  ) {
+    return await firstValueFrom(
+      this.habitacionServiceClient.send(
+        { cmd: 'find_all_habitaciones_by_servicio' },
+        { servicioId, paginationDto },
+      ),
+    );
+  }
+
+  // Método para calcular el precio de una habitación
+  async calcularPrecio(
+    habitacionId: number,
+    fechaInicio: string,
+    fechaFin: string,
+  ) {
+    return await firstValueFrom(
+      this.habitacionServiceClient.send(
+        { cmd: 'calcular_precio' },
+        { habitacionId, fechaInicio, fechaFin },
+      ),
+    );
+  }
 }
