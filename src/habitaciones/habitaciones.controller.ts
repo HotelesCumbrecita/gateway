@@ -76,6 +76,18 @@ export class HabitacionesController {
     return this.habitacionesService.removeTipoHabitacion(id);
   }
 
+  // Método para obtener habitaciones por tipo de habitación
+  @Get('tipos/:tipoHabitacionId/habitaciones')
+  async findAllHabitacionesByTipoHabitacion(
+    @Param('tipoHabitacionId', ParseIntPipe) tipoHabitacionId: number,
+    @Query() paginationDto: PaginationDto,
+  ) {
+    return this.habitacionesService.findAllHabitacionesByTipoHabitacion(
+      tipoHabitacionId,
+      paginationDto,
+    );
+  }
+
   // Endpoints para ServicioHabitacion
   @Post('servicios')
   async createServicioHabitacion(
@@ -94,6 +106,18 @@ export class HabitacionesController {
   @Delete('servicios/:id')
   async removeServicioHabitacion(@Param('id', ParseIntPipe) id: number) {
     return this.habitacionesService.removeServicioHabitacion(id);
+  }
+
+  // Método para obtener habitaciones por servicio específico
+  @Get('servicios/:servicioId/habitaciones')
+  async findAllHabitacionesByServicio(
+    @Param('servicioId', ParseIntPipe) servicioId: number,
+    @Query() paginationDto: PaginationDto,
+  ) {
+    return this.habitacionesService.findAllHabitacionesByServicio(
+      servicioId,
+      paginationDto,
+    );
   }
 
   // Endpoints para FotoHabitacion
@@ -116,5 +140,19 @@ export class HabitacionesController {
   @Delete('fotos/:id')
   async removeFotoHabitacion(@Param('id', ParseIntPipe) id: number) {
     return this.habitacionesService.removeFotoHabitacion(id);
+  }
+
+  // Método para calcular el precio de una habitación
+  @Get(':habitacionId/precio')
+  async calcularPrecio(
+    @Param('habitacionId', ParseIntPipe) habitacionId: number,
+    @Query('fechaInicio') fechaInicio: string,
+    @Query('fechaFin') fechaFin: string,
+  ) {
+    return this.habitacionesService.calcularPrecio(
+      habitacionId,
+      fechaInicio,
+      fechaFin,
+    );
   }
 }
